@@ -23,17 +23,17 @@
     >
       <!-- home screen  -->
       <section
-        class="home min-h-screen text-white flex justify-center items-center hidden"
+       id="home-section" class="home  min-h-screen text-white flex justify-center items-center"
       >
         <div class="flex flex-col items-center gap-10">
           <h1 class="text-8xl uppercase">Alpha Clash Pro</h1>
           <p>Unleash Your Keyboard Kung Fu : Press “Enter” to Play</p>
-          <button class="btn bg-white text-black">Play Now</button>
+          <button id="homeBtn" class="btn bg-white text-black hover:bg-red-500 hover:text-white px-5">Play Now</button>
         </div>
       </section>
 
       <!-- play ground start -->
-      <section class="play-ground hidden">
+      <section id="play-ground-section" class="hidden">
         <div class="flex flex-col items-center gap-20 pt-20">
 
             <!-- screen -->
@@ -110,7 +110,7 @@
       <!-- play ground end -->
 
       <!-- score -->
-      <section class="score flex justify-center items-center min-h-screen">
+      <section id="score-section" class="hidden score flex justify-center items-center min-h-screen">
         <div class="text-white rounded-2xl text-center space-y-6 bg-[#ffffff33] border-2 p-11 border-[#FFFFFF33]">
           <h1 class="text-7xl">
             <span class="font-extrabold">Score : </span>
@@ -121,5 +121,7 @@
         </div>
       </section>
     </main>
+
+    <script src="./script.js"></script>
   </body>
 </html>
