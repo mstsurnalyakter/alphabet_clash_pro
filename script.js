@@ -20,25 +20,42 @@ const getARandomAlphabet = () => {
   return alphabet;
 };
 
-
-
-document.addEventListener('keyup', e =>{
+document.addEventListener("keyup", (e) => {
   const playPressedAlphabet = e.key.toLowerCase();
-  const expectedAlphabet = getElementById("current-alphabet").innerText.toLowerCase();
-  if (playPressedAlphabet === expectedAlphabet) {
-      console.log('win',expectedAlphabet);
-    //update score
-    //get the current score
-    //increase the score by 1
-    // show the updated score
+  const expectedAlphabet =
+    getElementById("current-alphabet").innerText.toLowerCase();
 
-      //start a new ground
-      removeClass(expectedAlphabet, "bg-orange-400");
-      continueGame();
-  }else{
-    console.log('lost');
+  let currentScore = parseInt(getElementById("score").innerText);
+  let lifeScore = parseInt(getElementById("life").innerText);
+
+  if (playPressedAlphabet === expectedAlphabet) {
+    //update score
+    currentScore++;
+    getElementById("score").innerText = currentScore;
+
+    //start a new ground
+    removeClass(expectedAlphabet, "bg-orange-400");
+    continueGame();
+  } else {
+    lifeScore--;
+    getElementById("life").innerText = lifeScore;
+    removeClass(expectedAlphabet, "bg-orange-400");
+    continueGame();
+
+    if (lifeScore <= 0) {
+      addClass("play-ground-section", "hidden");
+      removeClass("score-section", "hidden");
+      getElementById("gain-score").innerText = currentScore;
+
+      getElementById("play-again").addEventListener("click", (e) => {
+        removeClass("play-ground-section", "hidden");
+        addClass("score-section", "hidden");
+        getElementById("score").innerText = 0;
+        getElementById("life").innerText = 5;
+      });
+    }
   }
-})
+});
 const continueGame = () => {
   //step - 1: generate a random alphabet
   const alphabet = getARandomAlphabet();
