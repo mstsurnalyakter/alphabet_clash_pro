@@ -1,33 +1,30 @@
-const getElementById = (btnId) =>{
-    return document.getElementById(btnId);
-}
+const getElementById = (btnId) => {
+  return document.getElementById(btnId);
+};
 
-const hiddenElementById = id =>{
-    getElementById(id).classList.add('hidden');
-}
+const addClass = (id, className) => {
+  getElementById(id).classList.add(className);
+};
 
-const showElementById = id =>{
-    getElementById(id).classList.remove("hidden");
-}
 
-const setBackgroundColorById = id =>{
-    const element = getElementById(id);
-    element.classList.add("bg-orange-400");
-}
+const removeClass = (id, className) => {
+  getElementById(id).classList.remove(className);
+};
 
-const getARandomAlphabet = () =>{
-    const alphabetString = "abcdefghijklmnopqrstuvwxyz";
-    const alphabets = alphabetString.split("");
 
-    const index = Math.round(Math.random()*25);
-    const alphabet = alphabets[index];
+const getARandomAlphabet = () => {
+  const alphabetString = "abcdefghijklmnopqrstuvwxyz";
+  const alphabets = alphabetString.split("");
 
-    return alphabet;
-}
+  const index = Math.round(Math.random() * 25);
+  const alphabet = alphabets[index];
+
+  return alphabet;
+};
 
 
 const continueGame = () => {
-    //step - 1: generate a random alphabet
+  //step - 1: generate a random alphabet
   const alphabet = getARandomAlphabet();
 
   //step - 2: set randomly generate alphabet
@@ -35,13 +32,12 @@ const continueGame = () => {
   para.innerText = alphabet;
 
   //step - 3 set background color
-  setBackgroundColorById(alphabet);
-
-
+  addClass(alphabet, "bg-orange-400");
 };
 
-getElementById("homeBtn").addEventListener('click',()=>{
-    hiddenElementById("home-section");
-    showElementById("play-ground-section");
-    continueGame();
+
+getElementById("homeBtn").addEventListener("click", () => {
+  addClass("home-section", "hidden");
+  removeClass("play-ground-section", "hidden");
+  continueGame();
 });
