@@ -6,11 +6,9 @@ const addClass = (id, className) => {
   getElementById(id).classList.add(className);
 };
 
-
 const removeClass = (id, className) => {
   getElementById(id).classList.remove(className);
 };
-
 
 const getARandomAlphabet = () => {
   const alphabetString = "abcdefghijklmnopqrstuvwxyz";
@@ -23,6 +21,24 @@ const getARandomAlphabet = () => {
 };
 
 
+
+document.addEventListener('keyup', e =>{
+  const playPressedAlphabet = e.key.toLowerCase();
+  const expectedAlphabet = getElementById("current-alphabet").innerText.toLowerCase();
+  if (playPressedAlphabet === expectedAlphabet) {
+      console.log('win',expectedAlphabet);
+    //update score
+    //get the current score
+    //increase the score by 1
+    // show the updated score
+
+      //start a new ground
+      removeClass(expectedAlphabet, "bg-orange-400");
+      continueGame();
+  }else{
+    console.log('lost');
+  }
+})
 const continueGame = () => {
   //step - 1: generate a random alphabet
   const alphabet = getARandomAlphabet();
@@ -34,7 +50,6 @@ const continueGame = () => {
   //step - 3 set background color
   addClass(alphabet, "bg-orange-400");
 };
-
 
 getElementById("homeBtn").addEventListener("click", () => {
   addClass("home-section", "hidden");
