@@ -21,6 +21,9 @@ const updateScore = (id, score) => {
 
 // common function end
 
+const audio = new Audio();
+let isGamePlayOn = false;
+
 const getARandomAlphabet = () => {
   const alphabetString = "abcdefghijklmnopqrstuvwxyz";
   const alphabets = alphabetString.split("");
@@ -32,7 +35,14 @@ const getARandomAlphabet = () => {
 };
 
 document.addEventListener("keyup", (e) => {
+
+  if (!isGamePlayOn) return;
+
   const playPressedAlphabet = e.key.toLowerCase();
+  // stop the game if pressed 'Esc'
+  if (playPressedAlphabet === "escape") {
+    gameOver(currentScore);
+  }
 
   const expectedAlphabet =
     getElementById("current-alphabet").innerText.toLowerCase();
@@ -40,6 +50,10 @@ document.addEventListener("keyup", (e) => {
   let currentScore = getScore("score");
   let lifeScore = getScore("life");
   if (playPressedAlphabet === expectedAlphabet) {
+    // add audio
+    audio.src = "./success.mp3";
+    audio.play();
+
     //update score
     currentScore++;
     updateScore("score", currentScore);
@@ -47,6 +61,8 @@ document.addEventListener("keyup", (e) => {
     removeClass(expectedAlphabet, "bg-orange-400");
     continueGame();
   } else {
+    audio.src = "./wrong.mp3";
+    audio.play();
     lifeScore--;
     updateScore("life", lifeScore);
 
@@ -56,11 +72,6 @@ document.addEventListener("keyup", (e) => {
     if (lifeScore === 0) {
       gameOver(currentScore);
     }
-  }
-
-  // stop the game if pressed 'Esc'
-  if (playPressedAlphabet === "escape") {
-    gameOver(currentScore);
   }
 });
 
@@ -79,6 +90,7 @@ const continueGame = () => {
 getElementById("homeBtn").addEventListener("click", () => {
   addClass("home-section", "hidden");
   removeClass("play-ground-section", "hidden");
+  isGamePlayOn = true;
   continueGame();
 });
 
@@ -86,6 +98,7 @@ const gameOver = (currentScore) => {
   addClass("play-ground-section", "hidden");
   removeClass("score-section", "hidden");
    updateScore("gain-score", currentScore);
+   isGamePlayOn = false
    playAgain();
 };
 
